@@ -7,4 +7,4 @@
 ## Co se teoreticky může měnit v conf
 - security.yaml - prava
 - .env - mailer
-- packages/gramework.yaml : disallow_search_engine_index: false
+- packages/framework.yaml : disallow_search_engine_index: false

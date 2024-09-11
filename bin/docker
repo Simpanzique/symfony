@@ -16,6 +16,14 @@ if test -z "$RUNTIME_PLATFORM"; then
     export RUNTIME_PLATFORM="`get_platform`"
 fi
 
+db_reset () {
+    # reset DB
+    bin/console doctrine:database:drop --force
+    bin/console doctrine:database:create
+    bin/console doctrine:migrations:migrate
+    bin/console LoadInitialData
+}
+
 docker_compose () {
     export WWW_DATA_UID="`id -u`"
     export WWW_DATA_GID="`id -g`"
@@ -63,7 +71,6 @@ docker_runtime_update() {
 
 docker_up() {
     docker_compose up --build -d
-    echo "Running at port: ${APP_PORT:-80}"
 }
 
 docker_down() {
@@ -197,6 +204,8 @@ exec)
     docker_exec "$@";;
 help)
     show_help "$@";;
+db-reset)
+    db_reset;;
 *)
     echo "unknown command: $cmd" 1>&2
     echo "use: "$0 help" for more help" 1>&2
