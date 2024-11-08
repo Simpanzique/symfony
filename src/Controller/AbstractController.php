@@ -9,14 +9,10 @@ use Symfony\Component\HttpFoundation\Response;
 
 class AbstractController extends AbstractControllerBase
 {
-
     protected EntityManagerInterface $entityManager;
 
-    public function __construct(
-        EntityManagerInterface $entityManager
-    ) {
+    public function injectionServices(EntityManagerInterface $entityManager) {
         $this->entityManager = $entityManager;
-        date_default_timezone_set("Europe/Prague");
     }
 
     protected function getGlobalParameters(): array
